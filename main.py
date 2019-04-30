@@ -4,11 +4,13 @@ import numpy as np
 from PIL import Image
 
 img = cv2.imread('1.jpg', cv2.IMREAD_UNCHANGED)
-hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-h,s,v = cv2.split(hsv)
+#hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+#h,s,v = cv2.split(hsv)
 
 BLUE = [255,0,0]
 
+
+#cv2.imread(img);
 #filter
 kernel = np.ones((5,5),np.float32)/25
 dst = cv2.filter2D(img,-1,kernel)
@@ -29,7 +31,7 @@ converted = np.where(data == 255,255,255)
 wht = Image.fromarray(converted.astype(np.uint8))
 
 #keep the text only
-mask = cv2.inRange(hsv, (0,0,0), (220, 220, 220))
+mask = cv2.inRange(img, (0,0,0), (220, 220, 220))
 dst1 = cv2.bitwise_and(img, img, mask=mask)
 
 plt.subplot(151),plt.imshow(img),plt.title('original')
@@ -43,3 +45,4 @@ plt.xticks([]), plt.yticks([])
 plt.subplot(155),plt.imshow(dst1),plt.title('keep text only')
 plt.xticks([]), plt.yticks([])
 plt.show()
+
